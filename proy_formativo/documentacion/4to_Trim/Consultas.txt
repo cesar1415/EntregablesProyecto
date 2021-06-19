@@ -1,0 +1,96 @@
+-- -----------------------------------------------------
+-- 1 Consultando todos los campos de la tbala USERS 
+-- -----------------------------------------------------
+select * from users;
+-- -----------------------------------------------------
+-- 2 Consultando todos los campos de la tbala USERS que sean vendedores 
+-- -----------------------------------------------------
+select * from users LEFT JOIN seller on users.Seller_idSeller = seller.idSeller;
+select * from users INNER JOIN seller on users.Seller_idSeller = seller.idSeller;
+select * from users RIGHT JOIN seller on users.Seller_idSeller = seller.idSeller;
+-- -----------------------------------------------------
+-- 3 Consultando todos los campos de la tabla CLIENTS donde el nombre tenga la s en cualquier posicion 
+-- -----------------------------------------------------
+SELECT * FROM `clients` WHERE NameLarge LIKE '%S%';
+-- -----------------------------------------------------
+-- 4 Consultando todos los campos de la tabla CLIENTS donde el segundo caracter del nombre contenga la letra A
+-- -----------------------------------------------------
+SELECT * FROM `clients` WHERE NameLarge LIKE '_A%';
+-- -----------------------------------------------------
+-- 5 Consultando todos los campos de la tabla CLIENTS donde el primer caracter del nombre empiece con la letra F
+-- -----------------------------------------------------
+SELECT * FROM `clients` WHERE NameLarge LIKE 'F%';
+-- -----------------------------------------------------
+-- 6 Consultando el nombre de la tabla USERS que sean OPERATOR y que la columna IDOPERATOR no sea null 
+-- -----------------------------------------------------
+select u.Name from users as u left join operator as o on u.Operator_idOperator = o.idOperator where u.Operator_idOperator is not null;
+-- -----------------------------------------------------
+-- 7 Consultando todos los campos de la tabla USERS que sean OPERATOR y que la columna IDOPERATOR tengan un 1 
+-- -----------------------------------------------------
+select * from users as u left join operator as o on u.Operator_idOperator = o.idOperator where u.Operator_idOperator LIKE '%1%';
+-- -----------------------------------------------------
+-- 8 Consultando todos los campos de la tabla SELL donde total este entre 800000 y 2000000 de pesos 
+-- -----------------------------------------------------
+SELECT * FROM `sale` WHERE Total BETWEEN 800000 AND 2000000;
+-- -----------------------------------------------------
+-- 9 Consultando todos los campos de la tabla SELL donde total este entre 800000 y 2000000 y me los ordene de menor a mayor
+-- -----------------------------------------------------
+SELECT * FROM `sale` WHERE Total BETWEEN 800000 AND 2000000 ORDER BY Total;
+-- -----------------------------------------------------
+-- 10 Consultando todos los campos de la tabla OPERATOR donde fechaNacimiento este entre '1999-02-01' y '1999-02-07' y me los ordene de forma DESC
+-- -----------------------------------------------------
+SELECT * FROM `operator` WHERE DateBirth BETWEEN '1999-02-01' AND '1999-02-07' ORDER BY DateBirth DESC
+-- -----------------------------------------------------
+-- 11 Consultando el conteo de las filas que tienen un valor diferente a null en el campos total de la tabla SELL 
+- -----------------------------------------------------
+select count(Total) from sale;
+-- -----------------------------------------------------
+-- 12 Consultando el conteo de las filas que tienen un valor "e" en el campos name de la tabla PRODUCTS 
+- -----------------------------------------------------
+select count(*) from products where Name like '%e%';
+-- -----------------------------------------------------
+-- 13 Consultando el conteo de la cantidad de productos que existen
+- -----------------------------------------------------
+select count(*) from products;
+-- -----------------------------------------------------
+-- 14 Consultando el campo Size de la tabla PRODUCTS donde Size este entre 14 y 24
+- -----------------------------------------------------
+SELECT size AS talla FROM `products` WHERE Size BETWEEN 14 AND 24;
+-- -----------------------------------------------------
+-- 15 Consultando el total de la tabla SELL donte total se mayor a 40000
+- -----------------------------------------------------
+SELECT Total AS mayor FROM `sale` WHERE Total > 40000;
+SELECT Total AS mayor FROM `sale` HAVING Total > 40000;
+-- -----------------------------------------------------
+-- 16 Consultando el NameLarge Address Email de la tabla OPERATOR y me ordene la direccion de forma ASC
+- -----------------------------------------------------
+select NameLarge, Address, Email from operator order by Address DESC;
+-- -----------------------------------------------------
+-- 17 Consultando todos los campos de la tabla CLIENTS donde NameLarge contenga una letra S y consultando todos los campos de la tabla SALE donde Quantity este entre 40 y 100.
+- -----------------------------------------------------
+SELECT * FROM `clients` WHERE NameLarge LIKE '%S%' UNION SELECT * FROM sale WHERE quantity BETWEEN 40 AND 100;
+-- -----------------------------------------------------
+-- 18 Consulta de creacion de tablas
+- ------------------------------------------------------
+CREATE TABLE UserActive SELECT * FROM Users WHEN active = 1;
+-----------------------------------------------------------
+---- 19  Seleccionar la tabla users y modificar el nombre usuario de todos los "user#" a la palabra NewUser
+-----------------------------------------------------------
+UPDATE users SET Name = "NewUser" WHERE Name IN ('user', 'user','user','user','user','user','user','user','user', 'user');
+-----------------------------------------------------------
+---- 20  Consulta la suma de todos los totales de la tabla sale
+-----------------------------------------------------------
+select SUM(Total) AS TOTALES from sale;
+-----------------------------------------------------------
+---- 21  Consulta la suma de todas las cantidades de la tabla sale
+-----------------------------------------------------------
+SELECT SUM(Quantity) AS total_cantidad FROM sale;
+-----------------------------------------------------------
+---- 22  Consulta de multiplicacion de quantity * total de la tabla sale
+-----------------------------------------------------------
+SELECT Quantity * Total as totales FROM `sale`;
+-----------------------------------------------------------
+---- 23  Promedio de totales de la tabla venta
+-----------------------------------------------------------
+SELECT AVG(Total)FROM sale;
+SELECT SUM(Total/6)FROM sale;
